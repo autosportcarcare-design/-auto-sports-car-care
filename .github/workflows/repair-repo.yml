@@ -1,0 +1,65 @@
+name: Repair AUTO SPORTS repository
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-repo.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate complete build archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s AUTO-SPORTS-CAR-CARE-COMPLETE-BUILD.zip
+          unzip -t AUTO-SPORTS-CAR-CARE-COMPLETE-BUILD.zip >/dev/null
+
+      - name: Restore monorepo structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .repo-repair
+          mkdir .repo-repair
+          unzip -q AUTO-SPORTS-CAR-CARE-COMPLETE-BUILD.zip -d .repo-repair
+
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name '.github' \
+            ! -name '.repo-repair' \
+            -exec rm -rf {} +
+
+          cp -a .repo-repair/. .
+          rm -rf .repo-repair
+
+          # This project deploys on Netlify, not AWS ECS.
+          rm -f .github/workflows/aws.yml
+
+          # Netlify local state must never be committed.
+          grep -qxF '.netlify/' .gitignore || printf '\n.netlify/\n' >> .gitignore
+
+      - name: Commit repaired source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "AUTO SPORTS Build Bot"
+          git config user.email "autosportcar.care@gmail.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Repository already repaired."
+            exit 0
+          fi
+          git commit -m "Repair monorepo structure for Netlify"
+          git push origin HEAD:main
