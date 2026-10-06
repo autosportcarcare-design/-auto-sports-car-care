@@ -1,0 +1,3 @@
+# Visual specification
+Mobile first. White product reading surfaces, graphite navigation, restrained red action accents, generous spacing and readable typography. No generated vehicle or product imagery. Use supplied original logo bytes only. The supplied AUTO-SPORT-logo(4).png is installed unchanged. Its SHA-256 matches the source: efa35a31a56480460cea8a726fe888f232670639537cced7c563e9d2fed93d7e.
+Navigation: categories, search, wishlist, account, cart. Home has a search-led introduction, category navigation and product area, with truthful empty states. Product detail exposes price, variant, actual stock, source media and unknown technical data explicitly. No invented ratings, delivery dates or technical claims.

@@ -1,0 +1,10 @@
+[build]
+  command = "corepack enable && pnpm db:generate && pnpm --filter @autosport/storefront build"
+  publish = "apps/storefront/.next"
+
+[build.environment]
+  NODE_VERSION = "24"
+  PNPM_VERSION = "11.25.0"
+
+[functions]
+  node_bundler = "esbuild"

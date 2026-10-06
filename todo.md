@@ -1,0 +1,15 @@
+# Phase 1 implementation and verification
+- [x] Inspect recovered starter; identify nonfunctional placeholder routes.
+- [x] Architecture, capability map, ERD, Prisma model, SQL migration, typed contracts, route map, design and plan.
+- [x] Secure account lifecycle and private resource ownership.
+- [x] Catalogue/search/variants, guest/customer cart, wishlist and address book.
+- [x] Server decimal prices and immutable order/tax snapshots.
+- [x] Transactional checkout/idempotency, reservations and movement ledger.
+- [x] Signed development payment flow; duplicate events do not deduct stock twice.
+- [x] Expiry worker and queued email delivery architecture.
+- [x] Separate admin sign-in, authorized catalogue writes and audit.
+- [x] Mobile customer journey verified; storefront/admin/domain/worker builds pass.
+- [ ] Native PostgreSQL race/load tests before launch.
+- [ ] Production hosting, real payment adapter and email delivery.
+- [ ] Verified real catalogue, media, price, stock and fulfilment import.
+- [ ] Review Phase 1 before Phase 2, as requested.
