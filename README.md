@@ -48,3 +48,14 @@ ADMIN_EMAIL='CONFIRMED_OWNER_EMAIL' pnpm --filter @autosport/worker exec node --
 ```
 
 This operator action records an audit entry. The admin app has its own sign-in form and uses the same user database; production deployments on different hostnames can sign in independently.
+
+## Shopify catalogue sync
+
+The connected commerce catalogue can be mirrored into PostgreSQL without inventing missing product data. Set `SHOPIFY_STORE_DOMAIN`, `SHOPIFY_ADMIN_ACCESS_TOKEN`, and `DATABASE_URL`, then run:
+
+```bash
+pnpm db:generate
+pnpm shopify:sync
+```
+
+The sync paginates the full Shopify catalogue, preserves Shopify product status, imports product title, handle, vendor/brand, product type/category, description, variants, SKU/barcode, prices, inventory and Shopify-hosted media. Missing SKUs receive a stable internal key based on the Shopify variant ID. Archived Shopify products remain archived and are not shown by the active storefront catalogue query.

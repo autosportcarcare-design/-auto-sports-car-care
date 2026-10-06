@@ -1,0 +1,19 @@
+{
+  "name": "@autosport/worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --import tsx src/run.ts",
+    "once": "node --import tsx src/run.ts --once",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@autosport/database": "workspace:*",
+    "@prisma/client": "6.19.3",
+    "tsx": "^4.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}

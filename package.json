@@ -1,24 +1,25 @@
 {
-  "name": "@autosport/storefront",
+  "name": "auto-sport-commerce",
   "private": true,
+  "packageManager": "pnpm@11.25.0",
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "lint": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@autosport/commerce": "workspace:*",
-    "@autosport/database": "workspace:*",
-    "@autosport/validation": "workspace:*",
-    "@prisma/client": "6.19.3",
-    "next": "^15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "zod": "^3.23.0"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "db:generate": "pnpm --filter @autosport/database prisma generate",
+    "db:migrate": "pnpm --filter @autosport/database prisma migrate dev",
+    "db:studio": "pnpm --filter @autosport/database prisma studio",
+    "test:journey": "node tests/run-journey.mjs",
+    "format": "prettier --write apps packages tests",
+    "shopify:sync": "pnpm --filter @autosport/database shopify:sync"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "typescript": "^5.6.0"
+    "prettier": "3.6.2",
+    "turbo": "^2.0.0",
+    "typescript": "^5.6.0",
+    "@electric-sql/pglite": "0.5.8",
+    "@electric-sql/pglite-socket": "0.2.11",
+    "playwright": "^1.58.0"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "@autosport/auth",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test src/credentials.test.ts"
+  },
+  "type": "module"
+}

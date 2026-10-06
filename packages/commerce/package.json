@@ -1,0 +1,18 @@
+{
+  "name": "@autosport/commerce",
+  "private": true,
+  "dependencies": {
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "exports": {
+    ".": "./src/pricing.ts"
+  }
+}
