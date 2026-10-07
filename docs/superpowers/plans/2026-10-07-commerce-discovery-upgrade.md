@@ -69,7 +69,25 @@
 - [ ] **Step 4: Commit**
   `git commit -am "feat: upgrade product detail experience"`
 
-### Task 3: Universal discovery search
+### Task 3: Resolve verified cross-links between products, services, and projects
+
+**Files:**
+- Modify: `apps/storefront/lib/catalog.ts`
+- Modify: `apps/storefront/app/services/[slug]/page.tsx`
+- Modify: `apps/storefront/app/product/[slug]/page.tsx`
+- Modify: `apps/storefront/app/gallery/[slug]/page.tsx`
+- Test: `tests/discovery.mts`
+
+**Interfaces:**
+- Produces: `getProductsBySlugs(slugs: string[])` and truthful related-content sections that render only verified references that resolve.
+
+- [ ] **Step 1: Add tests that unresolved product/service/project references are omitted rather than fabricated**
+- [ ] **Step 2: Implement relationship resolution**
+- [ ] **Step 3: Run discovery tests, typecheck, and build**
+- [ ] **Step 4: Commit**
+  `git commit -am "feat: connect products services and project stories"`
+
+### Task 4: Universal discovery search
 
 **Files:**
 - Create: `apps/storefront/lib/discovery.ts`
