@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+const root = new URL('../', import.meta.url);
+const services = await readFile(new URL('apps/storefront/lib/content/services.ts', root),'utf8');
+const types = await readFile(new URL('apps/storefront/lib/content/types.ts', root),'utf8');
+for (const slug of ['ppf','ceramic','detailing','paint-body','restoration','wraps','tinting','wheels-headlights','customisation']) assert.match(services,new RegExp(`slug\\s*:\\s*"${slug}"`));
+assert.match(types,/technicalVerified: boolean/);
+assert.match(types,/relatedProductSlugs: string\[\]/);
+assert.match(types,/relatedServiceSlugs: string\[\]/);
+assert.doesNotMatch(services,/price:\s*["'\d]/i);
+assert.doesNotMatch(services,/warranty:\s*["'\d]/i);
+console.log('PASS verified content registry contract');
