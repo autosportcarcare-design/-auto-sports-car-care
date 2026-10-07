@@ -1,67 +1,13 @@
-import Link from "next/link";
-import { db } from "@autosport/database";
-import { searchCatalog } from "../lib/catalog";
-import { ProductGrid } from "../components/common";
-import type { Product } from "../lib/types";
-export const dynamic = "force-dynamic";
-export default async function Home() {
-  let products: Product[] = [];
-  let categories: Array<{ slug: string; name: string }> = [];
-  let unavailable = false;
-  try {
-    products = JSON.parse(JSON.stringify(await searchCatalog({}))) as Product[];
-    categories = await db.category.findMany({
-      where: { active: true },
-      take: 12,
-      orderBy: { sortOrder: "asc" },
-      select: { slug: true, name: true },
-    });
-  } catch {
-    unavailable = true;
-  }
-  return (
-    <>
-      <div className="hero">
-        <span className="eyebrow">
-          Automotive products · Retail and business
-        </span>
-        <h1>
-          Find the product.
-          <br />
-          Understand the job.
-        </h1>
-        <p>
-          Search by product, brand or SKU. Check the current price, variant and
-          stock, then review the available product information before
-          purchasing.
-        </p>
-        <Link className="button" href="/search">
-          Explore catalogue
-        </Link>
-      </div>
-      <section>
-        <h2>Shop by category</h2>
-        <div className="category-rail">
-          {categories.map((c) => (
-            <Link key={c.slug} href={`/category/${c.slug}`}>
-              {c.name}
-            </Link>
-          ))}
-        </div>
-        {!categories.length && (
-          <p>
-            Categories will appear when the verified catalogue is available.
-          </p>
-        )}
-        <h2>Catalogue</h2>
-        {unavailable ? (
-          <p role="alert">
-            The catalogue is temporarily unavailable. Please try again.
-          </p>
-        ) : (
-          <ProductGrid products={products} />
-        )}
-      </section>
-    </>
-  );
-}
+import Link from "next/link"; import { db } from "@autosport/database"; import { searchCatalog } from "../lib/catalog"; import { ProductGrid } from "../components/common"; import { HomeHero } from "../components/home/home-hero"; import { services, vouchers, knowledge, b2bContent, projects } from "../lib/content"; import type { Product } from "../lib/types";
+export const dynamic="force-dynamic";
+export default async function Home(){let products:Product[]=[];let categories:Array<{slug:string;name:string}>=[];let brands:Array<{slug:string;name:string}>=[];let unavailable=false;try{products=JSON.parse(JSON.stringify(await searchCatalog({}))) as Product[];[categories,brands]=await Promise.all([db.category.findMany({where:{active:true},take:8,orderBy:{sortOrder:"asc"},select:{slug:true,name:true}}),db.brand.findMany({where:{active:true},take:14,orderBy:{name:"asc"},select:{slug:true,name:true}})])}catch{unavailable=true}const heroImage=products.flatMap(p=>p.media).find(m=>m.type==="IMAGE")?.url;return <>
+<HomeHero image={heroImage}/>
+<section className="home-section"><div className="section-head"><div><p className="eyebrow">Services</p><h2>Choose the work by outcome.</h2></div><Link href="/services">View all Services →</Link></div><div className="service-rail">{services.slice(0,6).map(s=><Link href={`/services/${s.slug}`} key={s.slug}><small>{s.kicker}</small><strong>{s.name}</strong></Link>)}</div></section>
+<section className="home-section"><div className="section-head"><div><p className="eyebrow">Products</p><h2>Verified catalogue, ready for the job.</h2></div><Link href="/products">View Products →</Link></div>{unavailable?<p role="alert">The catalogue is temporarily unavailable. Services and knowledge remain available.</p>:<ProductGrid products={products.slice(0,8)}/>}<div className="category-rail">{categories.map(c=><Link href={`/category/${c.slug}`} key={c.slug}>{c.name}</Link>)}</div></section>
+<section className="home-section"><div className="section-head"><div><p className="eyebrow">Brands</p><h2>Browse the live catalogue by brand.</h2></div></div><div className="brand-rail">{brands.length?brands.map(b=><Link href={`/brand/${b.slug}`} key={b.slug}>{b.name}</Link>):<p>Brands appear when the verified catalogue is available.</p>}</div></section>
+<section className="home-section split-section"><div><p className="eyebrow">Results</p><h2>Before → Process → Final Result.</h2><p>{projects.length?"Explore verified project stories.":"Verified project stories will appear here when approved project media is available."}</p><Link href="/gallery">View Gallery →</Link></div><div className="result-frame"><span>BEFORE</span><span>PROCESS</span><span>FINAL</span></div></section>
+<section className="home-section"><div className="section-head"><div><p className="eyebrow">Vouchers</p><h2>Service packages without hidden assumptions.</h2></div><Link href="/vouchers">View Vouchers →</Link></div><div className="feature-grid">{vouchers.map(v=><Link className="feature-card" href={`/vouchers/${v.slug}`} key={v.slug}><h3>{v.name}</h3><p>{v.description}</p><span>Enquire →</span></Link>)}</div></section>
+<section className="home-section split-section"><div><p className="eyebrow">Why Choose Us</p><h2>Service and supply in one connected journey.</h2><p>Start with the vehicle, understand the work, find the relevant product or service, and request the next action from the same platform.</p></div><div><p className="eyebrow">Process</p><ol className="process-list"><li>Discover</li><li>Understand</li><li>Confirm scope</li><li>Book or buy</li><li>Complete & support</li></ol></div></section>
+<section className="home-section split-section"><div><p className="eyebrow">Knowledge</p><h2>Information with a verification boundary.</h2>{knowledge.slice(0,2).map(a=><Link className="text-row" href={`/knowledge/${a.slug}`} key={a.slug}>{a.title}<span>→</span></Link>)}</div><div><p className="eyebrow">B2B</p><h2>{b2bContent.title}</h2><p>{b2bContent.summary}</p><Link className="button button-secondary" href="/b2b">Explore B2B</Link></div></section>
+<section className="home-section booking-band"><div><p className="eyebrow">Booking</p><h2>Tell us the vehicle and the result you want.</h2><p>Request a preferred date or quotation. A request is not treated as a confirmed appointment until reviewed.</p></div><Link className="button" href="/book">Start Booking Request</Link></section>
+</>}
