@@ -34,13 +34,14 @@
 - Create: `apps/storefront/lib/seo.ts`
 - Create: `apps/storefront/app/sitemap.ts`
 - Create: `apps/storefront/app/robots.ts`
-- Modify: dynamic service/product/project/knowledge pages to export metadata.
+- Create: `apps/storefront/components/seo/json-ld.tsx`
+- Modify: dynamic service/product/project/knowledge pages to export metadata and semantically valid Product / Service / Breadcrumb JSON-LD where source data supports it.
 - Test: `tests/seo.mts`
 
 **Interfaces:**
 - Produces: metadata helpers with canonical URL, title, description, Open Graph data, and crawlable sitemap entries.
 
-- [ ] **Step 1: Add tests for canonical uniqueness, no unknown slugs, and required public-route sitemap coverage**
+- [ ] **Step 1: Add tests for canonical uniqueness, no unknown slugs, required public-route sitemap coverage, and JSON-LD that never invents price/availability/ratings**
 - [ ] **Step 2: Implement SEO helpers and route metadata**
 - [ ] **Step 3: Run tests and production build**
 - [ ] **Step 4: Commit**
@@ -85,7 +86,7 @@
   Expected: PASS.
 - [ ] **Step 4: Run `pnpm test:journey`**
   Expected: PASS including mobile no-overflow and existing commerce journey.
-- [ ] **Step 5: Verify catalogue-unavailable, missing-media, empty-content, and reduced-motion states**
+- [ ] **Step 5: Verify catalogue-unavailable, missing-media, empty-content, reduced-motion, keyboard focus order, mobile form usability, lazy below-the-fold media, and 390px no-overflow states**
 - [ ] **Step 6: Commit any QA-only fixes**
   `git commit -am "test: complete premium storefront regression coverage"`
 
