@@ -37,13 +37,14 @@
 - Create: `apps/storefront/components/site-header.tsx`
 - Create: `apps/storefront/components/site-footer.tsx`
 - Create: `apps/storefront/components/mobile-nav.tsx`
+- Create: `apps/storefront/components/customer-actions.tsx`
 - Modify: `apps/storefront/app/layout.tsx`
 - Modify: `apps/storefront/app/globals.css`
 - Test: `tests/browser.mts`
 
 **Interfaces:**
 - Consumes: `siteConfig` from `apps/storefront/lib/site-config.ts`.
-- Produces: `SiteHeader`, `SiteFooter`, and `MobileNav` React components.
+- Produces: `SiteHeader`, `SiteFooter`, `MobileNav`, and reusable `CustomerActions` React components for Book, Request Quote, WhatsApp, and Call.
 
 - [ ] **Step 1: Write browser assertions for shell navigation**
   Assert visible links for Home, Services, Products, Search, Account/Cart as appropriate and assert document width does not exceed viewport.
@@ -87,7 +88,9 @@
 - Create: `apps/storefront/components/home/brand-preview.tsx`
 - Create: `apps/storefront/components/home/project-preview.tsx`
 - Create: `apps/storefront/components/home/voucher-preview.tsx`
+- Create: `apps/storefront/components/home/why-choose.tsx`
 - Create: `apps/storefront/components/home/process-preview.tsx`
+- Create: `apps/storefront/components/home/knowledge-preview.tsx`
 - Create: `apps/storefront/components/home/b2b-preview.tsx`
 - Create: `apps/storefront/components/home/booking-cta.tsx`
 - Modify: `apps/storefront/app/page.tsx`
@@ -98,7 +101,7 @@
 - Produces: complete home section order from the approved spec.
 
 - [ ] **Step 1: Add home section-order assertions to the browser test**
-  Assert Services → Products → Brands → Results → Gallery/Vouchers → Why Choose Us/Process → Knowledge/B2B → Booking.
+  Assert Services → Products → Brands → Results → Gallery/Vouchers → Why Choose Us → Process → Knowledge → B2B → Booking.
 - [ ] **Step 2: Run browser test and confirm failure**
 - [ ] **Step 3: Implement focused section components**
   Missing data must render a truthful empty/unavailable state rather than sample inventory.
