@@ -47,6 +47,13 @@ jobs:
       - name: Generate Prisma client
         run: pnpm db:generate
 
+      - name: Run source contract tests
+        if: github.ref == 'refs/heads/improve/storefront-next'
+        run: |
+          for test_file in tests/*-contract.mjs tests/content.mjs; do
+            node "$test_file"
+          done
+
       - name: Typecheck storefront
         run: pnpm --filter @autosport/storefront lint
 
