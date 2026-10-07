@@ -1,0 +1,3 @@
+import { EnquiryForm } from "../../components/enquiry/enquiry-form";
+type Kind="BOOKING"|"QUOTE"|"VOUCHER"|"B2B"; const kinds=new Set<Kind>(["BOOKING","QUOTE","VOUCHER","B2B"]);
+export default async function Book({searchParams}:{searchParams:Promise<{kind?:string;service?:string;voucher?:string}>}){const q=await searchParams;const kind=kinds.has(q.kind as Kind)?q.kind as Kind:"BOOKING";return <section className="content-page"><p className="eyebrow">BOOK / REQUEST QUOTE</p><h1>Start with the vehicle and the result you want.</h1><p className="lede">Send the request first. Scope, availability, price and appointment timing are confirmed after review.</p><EnquiryForm kind={kind} serviceSlug={q.service||""} voucherSlug={q.voucher||""}/></section>}
