@@ -57,6 +57,10 @@ jobs:
       - name: Typecheck storefront
         run: pnpm --filter @autosport/storefront lint
 
+      - name: Typecheck admin
+        if: github.ref == 'refs/heads/improve/storefront-next'
+        run: pnpm --filter @autosport/admin lint
+
       - name: Build storefront
         run: pnpm --filter @autosport/storefront build
 
