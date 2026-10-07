@@ -1,9 +1,13 @@
-name: Verify AUTO SPORTS build
+name: AUTO SPORTS Automatic Build
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: auto-sports-production-build
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -20,6 +24,7 @@ jobs:
       SHOPIFY_STORE_DOMAIN: autosport-trading.myshopify.com
       SHOPIFY_ADMIN_ACCESS_TOKEN: ""
       SHOPIFY_API_VERSION: "2026-07"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,3 +52,18 @@ jobs:
 
       - name: Build storefront
         run: pnpm --filter @autosport/storefront build
+
+      - name: Verify production output
+        shell: bash
+        run: |
+          test -d apps/storefront/.next
+          test -f apps/storefront/.next/BUILD_ID
+
+      - name: Upload production build
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-sports-storefront-build
+          path: apps/storefront/.next
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
