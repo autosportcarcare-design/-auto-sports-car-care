@@ -43,6 +43,7 @@
 
 **Interfaces:**
 - Produces: `ServiceContent`, `ProjectContent`, `VoucherContent`, `KnowledgeContent`, helper functions `getService(slug)`, `getProject(slug)`, `getVoucher(slug)`, `getKnowledgeArticle(slug)`.
+- Service/project types include optional verified relationships `relatedProductSlugs: string[]`, `relatedServiceSlugs: string[]`, and verification/source metadata; absent relationships render nothing.
 - Consumes: no commerce data.
 
 - [ ] **Step 1: Add content tests that reject duplicate slugs and require verification flags for technical sections**
@@ -65,7 +66,7 @@
 
 **Interfaces:**
 - Consumes: `getService(slug)` and service registry.
-- Produces: service routes covering overview, benefits, method, preparation, process, limitations, aftercare, FAQ, related products link area, samples, and booking actions.
+- Produces: service routes covering overview, benefits, method, preparation, process, limitations, aftercare, FAQ, related-product area, samples, and Book / Request Quote / WhatsApp / Call actions via `CustomerActions`.
 
 - [ ] **Step 1: Add browser tests for service index and one complete service-detail route**
 - [ ] **Step 2: Verify failure**
