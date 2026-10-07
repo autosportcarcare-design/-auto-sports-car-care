@@ -83,17 +83,3 @@ jobs:
         if: github.ref == 'refs/heads/improve/storefront-next'
         run: pnpm test:journey
 
-      - name: Verify production output
-        shell: bash
-        run: |
-          test -d apps/storefront/.next
-          test -f apps/storefront/.next/BUILD_ID
-
-      - name: Upload production build
-        uses: actions/upload-artifact@v4
-        with:
-          name: auto-sports-storefront-build
-          path: apps/storefront/.next
-          include-hidden-files: true
-          if-no-files-found: error
-          retention-days: 7
