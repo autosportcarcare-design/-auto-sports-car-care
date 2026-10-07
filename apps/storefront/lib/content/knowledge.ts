@@ -1,0 +1,6 @@
+import type { KnowledgeContent } from "./types";
+export const knowledge: KnowledgeContent[] = [
+ {slug:"choose-the-right-service",title:"Choose the right service",summary:"Start with the vehicle condition and the result you want, then confirm the service scope before work begins.",technicalVerified:false,sources:[],sections:[{heading:"Start with inspection",body:"Share the vehicle, current condition and required result so the correct service path can be reviewed."},{heading:"Confirm before work",body:"Price, materials, coverage and timing should be confirmed in the quotation rather than assumed from a general guide."}]},
+ {slug:"product-information-policy",title:"How product information is handled",summary:"Product price, stock and variants come from the catalogue; technical instructions are shown only when verified.",technicalVerified:true,sources:[],sections:[{heading:"Commerce truth",body:"The current catalogue is the source for product price, variant and availability."},{heading:"Technical truth",body:"Where verified technical information is unavailable, the site says so instead of generating a value."}]},
+];
+export function getKnowledgeArticle(slug:string){ return knowledge.find((item)=>item.slug===slug); }
