@@ -1,0 +1,3 @@
+import { z } from "zod";
+export const enquiryInputSchema=z.object({kind:z.enum(["BOOKING","QUOTE","VOUCHER","B2B"]),name:z.string().trim().min(2).max(100),email:z.string().trim().email().max(200),phone:z.string().trim().min(7).max(30),vehicle:z.string().trim().max(160).optional().or(z.literal("")),serviceSlug:z.string().trim().max(100).optional().or(z.literal("")),voucherSlug:z.string().trim().max(100).optional().or(z.literal("")),preferredDate:z.string().datetime().optional().or(z.literal("")),notes:z.string().trim().max(1500).optional().or(z.literal("")),idempotencyKey:z.string().uuid()});
+export type EnquiryInput=z.infer<typeof enquiryInputSchema>;
