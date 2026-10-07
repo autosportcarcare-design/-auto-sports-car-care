@@ -31,6 +31,7 @@ export default async function Layout({
                   "departments",
                   "categories",
                   "orders",
+                  "enquiries",
                   "customers",
                 ].map((name) => (
                   <Link key={name} href={`/${name}`}>
