@@ -32,13 +32,14 @@
 
 **Files:**
 - Modify: `packages/database/prisma/schema.prisma`
-- Create: `packages/database/prisma/migrations/<generated>-add-enquiry/migration.sql`
+- Create: `packages/database/prisma/migrations/20261007050000_add_enquiry/migration.sql`
 - Create: `apps/storefront/lib/enquiry-schema.ts`
 - Test: `tests/enquiry.mts`
 
 **Interfaces:**
 - Produces: Prisma `Enquiry` model and `EnquiryKind` enum; Zod `enquiryInputSchema`.
-- Fields: id, kind, name, email, phone, vehicle, serviceSlug?, voucherSlug?, preferredDate?, notes?, idempotencyKey unique, createdAt.
+- Fields: `id String @id @default(cuid())`, `kind EnquiryKind`, `name String`, `email String`, `phone String`, `vehicle String?`, `serviceSlug String?`, `voucherSlug String?`, `preferredDate DateTime?`, `notes String?`, `idempotencyKey String @unique`, `createdAt DateTime @default(now())`.
+- `EnquiryKind` exact values: `BOOKING`, `QUOTE`, `VOUCHER`, `B2B`.
 
 - [ ] **Step 1: Add validation tests for required contact information, enum kinds, optional request date, and idempotency key**
 - [ ] **Step 2: Run tests and confirm failure**
