@@ -1,0 +1,2 @@
+import Link from "next/link"; import { b2bContent } from "../../lib/content";
+export default function B2B(){return <section className="content-page"><p className="eyebrow">AUTO SPORT B2B</p><h1>{b2bContent.title}</h1><p className="lede">{b2bContent.summary}</p><div className="feature-grid">{b2bContent.points.map(x=><div className="feature-card" key={x}><h2>{x}</h2><p>Tell us what you need and we will review the available supply or support route.</p></div>)}</div><Link className="button" href="/book?kind=B2B">Request B2B Quote</Link></section>}
