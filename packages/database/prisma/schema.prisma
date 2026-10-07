@@ -486,3 +486,28 @@ model InventoryMovement {
  createdAt DateTime @default(now())
  @@index([variantId,createdAt])
 }
+
+
+enum EnquiryKind {
+  BOOKING
+  QUOTE
+  VOUCHER
+  B2B
+}
+
+model Enquiry {
+  id             String      @id @default(cuid())
+  kind           EnquiryKind
+  name           String
+  email          String
+  phone          String
+  vehicle        String?
+  serviceSlug    String?
+  voucherSlug    String?
+  preferredDate  DateTime?
+  notes          String?
+  idempotencyKey String      @unique
+  createdAt      DateTime    @default(now())
+
+  @@index([kind, createdAt])
+}
