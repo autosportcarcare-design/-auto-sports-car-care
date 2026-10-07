@@ -13,7 +13,7 @@ const [header, footer, mobile, actions, layout, css] = await Promise.all([
   text('apps/storefront/app/globals.css'),
 ]);
 
-for (const label of ['Services', 'Products', 'Search', 'Account', 'Cart']) {
+for (const label of ['Services', 'Products', 'Search', 'Booking', 'Cart']) {
   assert.match(header + mobile, new RegExp(`>${label}<`), `missing ${label} navigation`);
 }
 for (const label of ['Book', 'Request Quote', 'WhatsApp', 'Call']) {
