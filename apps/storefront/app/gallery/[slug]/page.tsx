@@ -1,0 +1,2 @@
+import { notFound } from "next/navigation"; import { getProject } from "../../../lib/content"; import { CustomerActions } from "../../../components/customer-actions";
+export default async function Project({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=getProject(slug);if(!p)notFound();return <article className="content-page"><p className="eyebrow">{p.category}</p><h1>{p.title}</h1><h2>Before</h2><p>{p.before}</p><h2>Process</h2><ol>{p.process.map(x=><li key={x}>{x}</li>)}</ol><h2>Final Result</h2><p>{p.result}</p><CustomerActions/></article>}
