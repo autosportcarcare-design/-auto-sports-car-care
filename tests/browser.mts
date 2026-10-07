@@ -59,7 +59,7 @@ try {
   await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page.waitForURL("**/account");
   await page.goto(base + "/search?q=Synthetic");
-  await page.getByRole("heading", { name: "Search products" }).waitFor();
+  await page.getByRole("heading", { name: "Explore everything AUTO SPORT." }).waitFor();
   await page.goto(base + "/product/" + fixture.productSlug);
   await page.getByRole("button", { name: "Add to cart", exact: true }).click();
   await page.getByRole("status").filter({ hasText: "Added to cart" }).waitFor();
