@@ -1,0 +1,1 @@
+export const b2bContent = { title:"Trade supply & workshop support", summary:"Product sourcing and service support for detailing centres, car washes, garages and automotive businesses.", points:["Trade product enquiries","Product and variant sourcing","Workshop/detailing-centre support","Quote-based B2B requests"] } as const;
