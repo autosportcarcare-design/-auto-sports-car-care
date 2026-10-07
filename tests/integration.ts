@@ -385,6 +385,33 @@ try {
   await db.outbox.deleteMany({
     where: { type: { in: ["VERIFY_EMAIL", "RESET_PASSWORD"] } },
   });
+  const enquiryKey = crypto.randomUUID();
+  const enquiryInput = {
+    kind: "QUOTE",
+    name: "Synthetic Enquiry",
+    email: `enquiry-${suffix}@example.test`,
+    phone: "0500000000",
+    serviceSlug: "ppf",
+    idempotencyKey: enquiryKey,
+  };
+  const enquiry = await call("/api/enquiries", "POST", enquiryInput, false);
+  assert.equal(enquiry.status, 200);
+  const repeatedEnquiry = await call("/api/enquiries", "POST", enquiryInput, false);
+  assert.equal(repeatedEnquiry.status, 200);
+  assert.equal(repeatedEnquiry.data.id, enquiry.data.id);
+  assert.equal(await db.enquiry.count({ where: { idempotencyKey: enquiryKey } }), 1);
+  assert.equal(
+    (
+      await call(
+        "/api/enquiries",
+        "POST",
+        { ...enquiryInput, idempotencyKey: crypto.randomUUID(), serviceSlug: "unknown-service" },
+        false,
+      )
+    ).status,
+    400,
+  );
+  ok("enquiry persists once and rejects unknown service");
   console.log(`Integration checks passed: ${passed}`);
   // Fixture details are for isolated browser tests, never production import.
   await import("node:fs/promises").then((fs) =>
