@@ -1,0 +1,1 @@
+export const siteOrigin=()=>{const value=process.env.APP_ORIGIN?.trim();return (value||"http://localhost:3000").replace(/\/$/,"")}; export const absoluteUrl=(path:string)=>`${siteOrigin()}${path.startsWith("/")?path:`/${path}`}`;
