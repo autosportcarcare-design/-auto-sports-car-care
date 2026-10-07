@@ -14,6 +14,15 @@ await db.exec(
     "utf8",
   ),
 );
+await db.exec(
+  await readFile(
+    new URL(
+      "../packages/database/prisma/migrations/20261007050000_add_enquiry/migration.sql",
+      import.meta.url,
+    ),
+    "utf8",
+  ),
+);
 const server = new PGLiteSocketServer({
   db,
   port: 55432,
