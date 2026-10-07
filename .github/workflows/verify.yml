@@ -2,11 +2,11 @@ name: AUTO SPORTS Automatic Build
 
 on:
   push:
-    branches: [main]
+    branches: [main, improve/storefront-next]
   workflow_dispatch:
 
 concurrency:
-  group: auto-sports-production-build
+  group: auto-sports-build-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -52,6 +52,14 @@ jobs:
 
       - name: Build storefront
         run: pnpm --filter @autosport/storefront build
+
+      - name: Install Playwright Chromium
+        if: github.ref == 'refs/heads/improve/storefront-next'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run isolated customer journey
+        if: github.ref == 'refs/heads/improve/storefront-next'
+        run: pnpm test:journey
 
       - name: Verify production output
         shell: bash
